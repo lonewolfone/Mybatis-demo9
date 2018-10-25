@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口-->
+<mapper namespace="org.lanqiao.dao.StudentMapper">
+    <resultMap id="stuAndTea" type="Student">
+        <id column="sid" property="sid"></id>
+        <result column="sname" property="sname"></result>
+        <result column="sage" property="sage"></result>
+        <result column="ssex" property="ssex"></result>
+        <collection property="teacherSet" ofType="Teacher">
+            <id column="tid" property="tid"></id>
+            <result column="tname" property="tname"></result>
+        </collection>
+    </resultMap>
+    <!--多表查询：关联查询：根据学生信息查询所有对应老师的信息-->
+    <select id="findStuAndTeaBySid" resultMap="stuAndTea">
+        select s.sid,sname,sage,ssex,t.tid,tname from stu s,teacher t,stu_tea st where s.sid = st.id and t.tid = st.id and s.sid = #{sid};
+    </select>
+</mapper>

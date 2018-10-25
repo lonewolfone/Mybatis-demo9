@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--读取数据库链接的属性文件-->
+    <properties resource="jdbc.properties"> </properties>
+    <!--绑定日志文件-->
+    <settings>
+        <!--配置mybatis的日志，使用LoG4J日志框架-->
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <!--设置别名-->
+    <typeAliases>
+        <!--<typeAlias type="org.Student" alias="stuu"/>-->
+        <!--使用pakcage指定别名，则意味着改包下的所有类 都使用其简单类名来作为该类的别名-->
+        <package name="org.lanqiao.pojo"></package>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <!--使用JDBC事务，MySql不自动提交事务-->
+            <transactionManager type="JDBC"/>
+            <!--配置数据源-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--注册映射文件-->
+    <mappers>
+        <mapper class="org.lanqiao.dao.TeacherMapper"/>
+        <mapper class="org.lanqiao.dao.StudentMapper"/>
+    </mappers>
+</configuration>
